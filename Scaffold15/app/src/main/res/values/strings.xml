@@ -2,11 +2,11 @@
     <string name="app_name">Scaffold</string>
     <string name="title_activity_main">title</string>
     <string name="hello_world">Hello</string>
-    <string name="pause">Game paused</string>
+    <string name="pause">PAUSE</string>
     <string name="start">Start game</string>
     <string name="game_title">game title</string>
-    <string name="pause_dialog_title">pause title</string>
-    <string name="pause_dialog_message">pause message</string>
-    <string name="resume">resume</string>
-    <string name="stop">stop</string>
+    <string name="pause_dialog_title">PAUSED GAME</string>
+    <string name="pause_dialog_message">YOU CAN RESUME OR EXIT THE GAME</string>
+    <string name="resume">RESUME</string>
+    <string name="stop">EXIT</string>
 </resources>
