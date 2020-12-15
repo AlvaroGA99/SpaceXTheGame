@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.Space;
 
 import dadm.scaffold.BaseFragment;
 import dadm.scaffold.R;
@@ -49,10 +50,11 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                 theGameEngine = new GameEngine(getActivity(), gameView);
                 theGameEngine.setSoundManager(getScaffoldActivity().getSoundManager());
                 theGameEngine.setTheInputController(new JoystickInputController(getView()));
-                theGameEngine.addGameObject(new SpaceShipPlayer(theGameEngine));
+                SpaceShipPlayer auxShip = new SpaceShipPlayer(theGameEngine);
+                theGameEngine.addGameObject(auxShip);
                 theGameEngine.addGameObject(new FramesPerSecondCounter(theGameEngine));
                 theGameEngine.addGameObject(new GameController(theGameEngine));
-                theGameEngine.addGameObject(new lifeUi(theGameEngine));
+                theGameEngine.addGameObject(new lifeUi(theGameEngine,auxShip));
                 theGameEngine.startGame();
             }
         });

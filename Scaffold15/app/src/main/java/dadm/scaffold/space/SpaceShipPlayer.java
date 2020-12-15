@@ -28,7 +28,7 @@ public class SpaceShipPlayer extends Sprite {
     private int maxX;
     private int maxY;
     private double speedFactor;
-    private byte hp = 2;
+    public byte hp = 2;
 
 
     public SpaceShipPlayer(GameEngine gameEngine){

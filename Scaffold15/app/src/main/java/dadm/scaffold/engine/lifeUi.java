@@ -9,16 +9,19 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import dadm.scaffold.R;
+import dadm.scaffold.space.SpaceShipPlayer;
 
 public class lifeUi extends GameObject {
 
     private Matrix matrix;
     private double pixelFactor;
     private final Bitmap bitmap;
+    private final SpaceShipPlayer ship;
 
-    public lifeUi(GameEngine gameEngine){
+    public lifeUi(GameEngine gameEngine, SpaceShipPlayer player){
+        this.ship = player;
         Resources r = gameEngine.getContext().getResources();
-        Drawable boxDrawable = r.getDrawable(R.drawable.butt);
+        Drawable boxDrawable = r.getDrawable(R.drawable.elondamusk);
         matrix = new Matrix();
         pixelFactor = gameEngine.pixelFactor;
         this.bitmap = ((BitmapDrawable) boxDrawable).getBitmap();
@@ -36,9 +39,12 @@ public class lifeUi extends GameObject {
 
     @Override
     public void onDraw(Canvas canvas) {
-        matrix.reset();
-        matrix.postScale((float)pixelFactor/6,(float)pixelFactor/6 );
-        matrix.postTranslate(50,50);
-        canvas.drawBitmap(bitmap,matrix,null);
+        for(int i = 0; i <= ship.hp; i++ ){
+            matrix.reset();
+            matrix.postScale((float)(pixelFactor*0.75),(float)(pixelFactor*0.75) );
+            matrix.postTranslate( 50 + i*150,75);
+            canvas.drawBitmap(bitmap,matrix,null);
+        }
+
     }
 }
