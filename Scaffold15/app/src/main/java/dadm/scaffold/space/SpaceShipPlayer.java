@@ -1,9 +1,14 @@
 package dadm.scaffold.space;
 
+import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import dadm.scaffold.R;
+import dadm.scaffold.ScaffoldActivity;
+import dadm.scaffold.counter.EndGameFragment;
 import dadm.scaffold.engine.GameEngine;
 import dadm.scaffold.engine.ScreenGameObject;
 import dadm.scaffold.engine.Sprite;
@@ -20,10 +25,11 @@ public class SpaceShipPlayer extends Sprite {
     private int maxX;
     private int maxY;
     private double speedFactor;
+    private byte hp = 2;
 
 
     public SpaceShipPlayer(GameEngine gameEngine){
-        super(gameEngine, R.drawable.ship);
+        super(gameEngine, R.drawable.blueship);
         speedFactor = pixelFactor * 100d / 1000d; // We want to move at 100px per second on a 400px tall screen
         maxX = gameEngine.width - width;
         maxY = gameEngine.height - height;
@@ -98,11 +104,25 @@ public class SpaceShipPlayer extends Sprite {
     @Override
     public void onCollision(GameEngine gameEngine, ScreenGameObject otherObject) {
         if (otherObject instanceof Asteroid) {
-            gameEngine.removeGameObject(this);
+
+
+            //gameEngine.removeGameObject(this);
             //gameEngine.stopGame();
             Asteroid a = (Asteroid) otherObject;
             a.removeObject(gameEngine);
             gameEngine.onGameEvent(GameEvent.SpaceshipHit);
+            if(this.hp > 0){
+                this.hp --;
+            }else{
+                gameEngine.stopGame();
+                ((ScaffoldActivity)gameEngine.mainActivity).navigateToFragment(new EndGameFragment());
+
+            }
+
         }
+    }
+
+    private FragmentManager getSupportFragmentManager() {
+        return null;
     }
 }

@@ -6,7 +6,9 @@
     <string name="start">Start game</string>
     <string name="game_title">game title</string>
     <string name="pause_dialog_title">PAUSED GAME</string>
-    <string name="pause_dialog_message">YOU CAN RESUME OR EXIT THE GAME</string>
+    <string name="pause_dialog_message"></string>
     <string name="resume">RESUME</string>
     <string name="stop">EXIT</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

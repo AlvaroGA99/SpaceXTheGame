@@ -16,7 +16,7 @@
 
         android:text="@string/start"
         android:textSize="30dp"
-        android:textColor="@color/redTitle"
+        android:textColor="@color/whiteTitle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

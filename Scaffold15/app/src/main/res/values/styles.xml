@@ -12,6 +12,7 @@
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@drawable/butt</item>
         <item name="android:textColor">@color/redTitle</item>
+
     </style>
 
 </resources>

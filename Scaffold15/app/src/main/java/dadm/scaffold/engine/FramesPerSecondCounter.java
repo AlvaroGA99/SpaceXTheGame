@@ -42,6 +42,7 @@ public class FramesPerSecondCounter extends GameObject {
 
     @Override
     public void onDraw(Canvas canvas) {
+
         paint.setColor(Color.BLACK);
         canvas.drawRect(0, (int) (canvas.getHeight() - textHeight), textWidth, canvas.getHeight(), paint);
         paint.setColor(Color.WHITE);

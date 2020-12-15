@@ -34,7 +34,7 @@ public class GameEngine {
     public int height;
     public double pixelFactor;
 
-    private Activity mainActivity;
+    public Activity mainActivity;
 
     public GameEngine(Activity activity, GameView gameView) {
         mainActivity = activity;
