@@ -9,6 +9,8 @@ public class InputController {
 
     public boolean isFiring;
 
+    public boolean colorSwitch;
+
     //endregion
 
     //region ||| Public methods |||

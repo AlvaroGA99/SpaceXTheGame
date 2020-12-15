@@ -2,6 +2,7 @@ package dadm.scaffold.space;
 
 import android.app.FragmentManager;
 import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.Fragment;
 
 import java.util.ArrayList;
@@ -105,6 +106,20 @@ public class SpaceShipPlayer extends Sprite {
     }
 
     private void checkFiring(long elapsedMillis, GameEngine gameEngine) {
+        if (gameEngine.theInputController.colorSwitch){
+            gameEngine.theInputController.colorSwitch = false;
+
+            type ^= 1;
+
+            if(type == 0){
+                this.spriteDrawable = gameEngine.getContext().getResources().getDrawable(R.drawable.blueship);
+            }
+            else{
+                this.spriteDrawable = gameEngine.getContext().getResources().getDrawable(R.drawable.redship);
+            }
+
+            this.bitmap = bitmap = ((BitmapDrawable) spriteDrawable).getBitmap();
+        }
         if (gameEngine.theInputController.isFiring && timeSinceLastFire > TIME_BETWEEN_BULLETS) {
             Bullet bullet = getBullet();
             Bullet bullet2 = getBullet();
