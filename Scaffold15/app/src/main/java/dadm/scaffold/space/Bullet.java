@@ -12,6 +12,8 @@ public class Bullet extends Sprite {
 
     private SpaceShipPlayer parent;
 
+    private int movX;
+
     public Bullet(GameEngine gameEngine, int drawableRes){
         super(gameEngine, drawableRes);
 
@@ -36,13 +38,20 @@ public class Bullet extends Sprite {
             // And return it to the pool
             parent.releaseBullet(this);
         }
+        positionX += movX * 0.8f * speedFactor * elapsedMillis;
+        if (positionX < -height) {
+            gameEngine.removeGameObject(this);
+            // And return it to the pool
+            parent.releaseBullet(this);
+        }
     }
 
 
-    public void init(SpaceShipPlayer parentPlayer, double initPositionX, double initPositionY) {
+    public void init(SpaceShipPlayer parentPlayer, double initPositionX, double initPositionY, int mX) {
         positionX = initPositionX - width/2;
         positionY = initPositionY - height/2;
         parent = parentPlayer;
+        movX = mX;
     }
 
     private void removeObject(GameEngine gameEngine) {
@@ -54,16 +63,17 @@ public class Bullet extends Sprite {
     @Override
     public void onCollision(GameEngine gameEngine, ScreenGameObject otherObject) {
         if (otherObject instanceof Asteroid) {
-            Asteroid ast = (Asteroid)otherObject;
-            if(ast.type == this.type) {
+            Asteroid ast = (Asteroid) otherObject;
+            if (ast.type == this.type) {
 
                 // Remove both from the game (and return them to their pools)
                 removeObject(gameEngine);
-                Asteroid a = (Asteroid) otherObject;
-                a.removeObject(gameEngine);
+                ast.removeObject(gameEngine);
                 gameEngine.onGameEvent(GameEvent.AsteroidHit);
                 // Add some score
             }
         }
     }
 }
+
+

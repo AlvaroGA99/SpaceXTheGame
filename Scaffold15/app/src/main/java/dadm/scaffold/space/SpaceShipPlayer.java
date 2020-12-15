@@ -20,7 +20,7 @@ import dadm.scaffold.sound.GameEvent;
 public class SpaceShipPlayer extends Sprite {
     public int type; //0 blue 1 red
 
-    private static final int INITIAL_BULLET_POOL_AMOUNT = 12;
+    private static final int INITIAL_BULLET_POOL_AMOUNT = 24;
     private static final long TIME_BETWEEN_BULLETS = 250;
     List<Bullet> redBullets = new ArrayList<Bullet>();
     List<Bullet> blueBullets = new ArrayList<Bullet>();
@@ -78,7 +78,7 @@ public class SpaceShipPlayer extends Sprite {
     @Override
     public void startGame() {
         positionX = maxX / 2;
-        positionY = maxY / 2;
+        positionY = maxY;
     }
 
     @Override
@@ -120,18 +120,56 @@ public class SpaceShipPlayer extends Sprite {
 
             this.bitmap = bitmap = ((BitmapDrawable) spriteDrawable).getBitmap();
         }
-        if (gameEngine.theInputController.isFiring && timeSinceLastFire > TIME_BETWEEN_BULLETS) {
-            Bullet bullet = getBullet();
-            Bullet bullet2 = getBullet();
-            if (bullet == null) {
+        if(timeSinceLastFire > TIME_BETWEEN_BULLETS) {
+            Bullet bullet1 = getBullet();
+            if (bullet1 == null) {
                 return;
             }
-            bullet.init(this, positionX + width/2, positionY);
-            bullet2.init(this, positionX + width/2 - 75, positionY);
-            gameEngine.addGameObject(bullet);
+            Bullet bullet2 = getBullet();
+            if (bullet2 == null) {
+                releaseBullet(bullet1);
+                return;
+            }
+            bullet1.init(this, positionX + width/2, positionY, 0);
+            bullet2.init(this, positionX + width/2 - 75, positionY, 0);
+            gameEngine.addGameObject(bullet1);
             gameEngine.addGameObject(bullet2);
             timeSinceLastFire = 0;
+            if (gameEngine.theInputController.isFiring) {
+                gameEngine.onGameEvent(GameEvent.LaserFired);
+                Bullet bullet3 = getBullet();
+                if (bullet3 == null) {
+                    return;
+                }
+                Bullet bullet4 = getBullet();
+                if (bullet4 == null) {
+                    releaseBullet(bullet3);
+                    return;
+                }
+                Bullet bullet5 = getBullet();
+                if (bullet5 == null) {
+                    releaseBullet(bullet3);
+                    releaseBullet(bullet4);
+                    return;
+                }
+                Bullet bullet6 = getBullet();
+                if (bullet6 == null) {
+                    releaseBullet(bullet3);
+                    releaseBullet(bullet4);
+                    releaseBullet(bullet5);
+                    return;
+                }
+                bullet3.init(this, positionX + width / 2, positionY, 1);
+                bullet4.init(this, positionX + width / 2 - 75, positionY, 1);
+                bullet5.init(this, positionX + width / 2, positionY, -1);
+                bullet6.init(this, positionX + width / 2 - 75, positionY, -1);
+                gameEngine.addGameObject(bullet3);
+                gameEngine.addGameObject(bullet4);
+                gameEngine.addGameObject(bullet5);
+                gameEngine.addGameObject(bullet6);
+            }
             gameEngine.onGameEvent(GameEvent.LaserFired);
+            timeSinceLastFire = 0;
         }
         else {
             timeSinceLastFire += elapsedMillis;
@@ -146,8 +184,7 @@ public class SpaceShipPlayer extends Sprite {
 
                 //gameEngine.removeGameObject(this);
                 //gameEngine.stopGame();
-                Asteroid a = (Asteroid) otherObject;
-                a.removeObject(gameEngine);
+                ast.removeObject(gameEngine);
                 gameEngine.onGameEvent(GameEvent.SpaceshipHit);
                 if (this.hp > 0) {
                     this.hp--;
@@ -158,21 +195,6 @@ public class SpaceShipPlayer extends Sprite {
                 }
             }
         }
-    }
-
-    @Override
-    public void onDraw(Canvas canvas) {
-        if (positionX > canvas.getWidth()
-                || positionY > canvas.getHeight()
-                || positionX < - width
-                || positionY < - height) {
-            return;
-        }
-        matrix.reset();
-        matrix.postScale((float) pixelFactor, (float) pixelFactor);
-        matrix.postTranslate((float) positionX, (float) positionY);
-        matrix.postRotate((float) rotation, (float) (positionX + width/2), (float) (positionY + height/2));
-        canvas.drawBitmap(bitmap, matrix, null);
     }
 
     private FragmentManager getSupportFragmentManager() {
