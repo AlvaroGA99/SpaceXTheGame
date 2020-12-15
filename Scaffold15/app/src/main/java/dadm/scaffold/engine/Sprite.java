@@ -13,13 +13,15 @@ public abstract class Sprite extends ScreenGameObject {
 
     protected double pixelFactor;
 
-    private  Bitmap bitmap;
+    protected Bitmap bitmap;
 
-    private final Matrix matrix = new Matrix();
+    protected final Matrix matrix = new Matrix();
+
+    protected Drawable spriteDrawable;
 
     protected Sprite (GameEngine gameEngine, int drawableRes) {
         Resources r = gameEngine.getContext().getResources();
-        Drawable spriteDrawable = r.getDrawable(drawableRes);
+        spriteDrawable = r.getDrawable(drawableRes);
 
         this.pixelFactor = gameEngine.pixelFactor;
 

@@ -6,6 +6,7 @@ import dadm.scaffold.engine.ScreenGameObject;
 import dadm.scaffold.engine.Sprite;
 
 public class Asteroid extends Sprite {
+    public int type; //1 red 0 blue
 
     private final GameController gameController;
 
@@ -15,9 +16,16 @@ public class Asteroid extends Sprite {
     private double rotationSpeed;
 
 
-    public Asteroid(GameController gameController, GameEngine gameEngine) {
+    public Asteroid(GameController gameController, GameEngine gameEngine, int drawableRes) {
+        super(gameEngine, drawableRes);
 
-        super(gameEngine, R.drawable.blueasteroid);
+        if (drawableRes == R.drawable.blueasteroid){
+            type = 0;
+        }
+        else{
+            type = 1;
+        }
+
         this.speed = 200d * pixelFactor/1000d;
         this.gameController = gameController;
     }
