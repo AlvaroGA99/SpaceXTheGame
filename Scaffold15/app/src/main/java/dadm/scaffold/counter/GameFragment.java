@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.Space;
+import android.widget.TextView;
 
 import dadm.scaffold.BaseFragment;
 import dadm.scaffold.R;
@@ -26,6 +27,7 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
     private GameEngine theGameEngine;
 
     public GameFragment() {
+
     }
 
     @Override
@@ -40,22 +42,27 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.btn_play_pause).setOnClickListener(this);
         final ViewTreeObserver observer = view.getViewTreeObserver();
+        final Bundle bundle = this.getArguments();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener(){
             @Override
             public void onGlobalLayout(){
-                //Para evitar que sea llamado múltiples veces,
-                //se elimina el listener en cuanto es llamado
-                observer.removeOnGlobalLayoutListener(this);
-                GameView gameView = (GameView) getView().findViewById(R.id.gameView);
-                theGameEngine = new GameEngine(getActivity(), gameView);
-                theGameEngine.setSoundManager(getScaffoldActivity().getSoundManager());
-                theGameEngine.setTheInputController(new JoystickInputController(getView()));
-                SpaceShipPlayer auxShip = new SpaceShipPlayer(theGameEngine);
-                theGameEngine.addGameObject(auxShip);
-                theGameEngine.addGameObject(new FramesPerSecondCounter(theGameEngine));
-                theGameEngine.addGameObject(new GameController(theGameEngine));
-                theGameEngine.addGameObject(new lifeUi(theGameEngine,auxShip));
-                theGameEngine.startGame();
+                    //Pra evitar que sea llamado múltiples veces,
+                    //se elimina el listener en cuanto es llamado
+                    observer.removeOnGlobalLayoutListener(this);
+                    TextView score = (TextView)getView().findViewById(R.id.scoreText);
+                    GameView gameView = (GameView) getView().findViewById(R.id.gameView);
+                    theGameEngine = new GameEngine(getActivity(), gameView,score);
+                    theGameEngine.setSoundManager(getScaffoldActivity().getSoundManager());
+                    theGameEngine.setTheInputController(new JoystickInputController(getView()));
+                    SpaceShipPlayer auxShip = new SpaceShipPlayer(theGameEngine,Integer.parseInt(bundle.getString("data")));
+                    theGameEngine.addGameObject(auxShip);
+                    theGameEngine.addGameObject(new FramesPerSecondCounter(theGameEngine));
+                    theGameEngine.addGameObject(new GameController(theGameEngine));
+                    theGameEngine.addGameObject(new lifeUi(theGameEngine,auxShip));
+                    theGameEngine.startGame();
+
+
+
             }
         });
 
@@ -110,7 +117,7 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         theGameEngine.stopGame();
-                        ((ScaffoldActivity)getActivity()).navigateBack();
+                        ((ScaffoldActivity)getActivity()).navigateToFragment(new MainMenuFragment(),"");
                     }
                 })
                 .setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -135,4 +142,6 @@ public class GameFragment extends BaseFragment implements View.OnClickListener {
             button.setText(R.string.resume);
         }
     }
+
+
 }

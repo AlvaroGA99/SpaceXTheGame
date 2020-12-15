@@ -25,15 +25,21 @@ public class SpaceShipPlayer extends Sprite {
     List<Bullet> redBullets = new ArrayList<Bullet>();
     List<Bullet> blueBullets = new ArrayList<Bullet>();
     private long timeSinceLastFire;
-
+    private int ship;
     private int maxX;
     private int maxY;
     private double speedFactor;
     public byte hp = 2;
 
 
-    public SpaceShipPlayer(GameEngine gameEngine){
+    public SpaceShipPlayer(GameEngine gameEngine,int ship){
         super(gameEngine, R.drawable.blueship);
+        if(ship == 1){
+            this.spriteDrawable = gameEngine.getContext().getResources().getDrawable(R.drawable.blueanothership);
+            this.bitmap = bitmap = ((BitmapDrawable) spriteDrawable).getBitmap();
+        }
+
+        this.ship = ship;
         type = 0;
         speedFactor = pixelFactor * 150d / 1000d; // We want to move at 150px per second on a 400px tall screen
         maxX = gameEngine.width - width;
@@ -112,10 +118,19 @@ public class SpaceShipPlayer extends Sprite {
             type ^= 1;
 
             if(type == 0){
-                this.spriteDrawable = gameEngine.getContext().getResources().getDrawable(R.drawable.blueship);
+                if(ship == 0){
+                    this.spriteDrawable = gameEngine.getContext().getResources().getDrawable(R.drawable.blueship);
+                }else{
+                    this.spriteDrawable = gameEngine.getContext().getResources().getDrawable(R.drawable.blueanothership);
+                }
+
             }
             else{
-                this.spriteDrawable = gameEngine.getContext().getResources().getDrawable(R.drawable.redship);
+                if(ship == 0){
+                    this.spriteDrawable = gameEngine.getContext().getResources().getDrawable(R.drawable.redship);
+                }else{
+                    this.spriteDrawable = gameEngine.getContext().getResources().getDrawable(R.drawable.redanothership);
+                }
             }
 
             this.bitmap = bitmap = ((BitmapDrawable) spriteDrawable).getBitmap();
@@ -192,7 +207,7 @@ public class SpaceShipPlayer extends Sprite {
                     this.hp--;
                 } else {
                     gameEngine.stopGame();
-                    ((ScaffoldActivity) gameEngine.mainActivity).navigateToFragment(new EndGameFragment());
+                    ((ScaffoldActivity) gameEngine.mainActivity).navigateToFragment(new EndGameFragment(),"\nGAME OVER\nYOU GOT "+ gameEngine.asteroid_counter + "/2500 POINTS");
 
                 }
             }

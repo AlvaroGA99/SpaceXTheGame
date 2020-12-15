@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Scaffold</string>
-    <string name="title_activity_main">title</string>
+    <string name="app_name">Space X The Game</string>
+    <string name="title_activity_main">Space X The Game</string>
     <string name="hello_world">Hello</string>
     <string name="pause">PAUSE</string>
     <string name="start">Start game</string>
@@ -9,6 +9,10 @@
     <string name="pause_dialog_message"></string>
     <string name="resume">RESUME</string>
     <string name="stop">EXIT</string>
+    <string name="level_complete">LEVEL COMPLETED</string>
+    <string name="game_over">GAME OVER</string>
+    <string name="select_ship">SELECT SHIP</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

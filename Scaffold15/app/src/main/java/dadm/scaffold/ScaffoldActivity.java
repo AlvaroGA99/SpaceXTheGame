@@ -1,6 +1,7 @@
 package dadm.scaffold;
 
 import android.media.AudioManager;
+import android.os.Binder;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,11 +9,12 @@ import android.view.View;
 
 import dadm.scaffold.counter.GameFragment;
 import dadm.scaffold.counter.MainMenuFragment;
+import dadm.scaffold.counter.SelectShipFragment;
 import dadm.scaffold.sound.SoundManager;
 
 public class ScaffoldActivity extends AppCompatActivity {
 
-    private static final String TAG_FRAGMENT = "content";
+    private static final String TAG_FRAGMENT = "game";
 
     private SoundManager soundManager;
 
@@ -35,10 +37,13 @@ public class ScaffoldActivity extends AppCompatActivity {
 
     public void startGame() {
         // Navigate the the game fragment, which makes the start automatically
-        navigateToFragment( new GameFragment());
+        navigateToFragment( new SelectShipFragment(),"");
     }
 
-    public void navigateToFragment(BaseFragment dst) {
+    public void navigateToFragment(BaseFragment dst, String data ) {
+        Bundle bundle = new Bundle();
+        bundle.putString("data",data);
+        dst.setArguments(bundle);
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, dst, TAG_FRAGMENT)

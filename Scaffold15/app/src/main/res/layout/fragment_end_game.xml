@@ -5,16 +5,52 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".counter.EndGameFragment"
-    android:background="@drawable/backg">
+    android:background="@drawable/backg"
+    tools:context=".counter.EndGameFragment">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="412dp"
-        android:layout_height="223dp"
+        android:id="@+id/finalText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="200px"
         android:background="@drawable/butt"
+        android:gravity="center_horizontal"
+        android:text="LEVEL COMPLETED"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textColor="@color/whiteTitle"
+        android:textSize="100px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.712" />
+
+    <Button
+        android:id="@+id/playagainButton"
+        android:layout_width="172dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginBottom="108dp"
+        android:background="@drawable/butt"
+        android:text="PLAY AGAIN"
+        android:textSize="30dp"
+        android:textColor="@color/whiteTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/finalText" />
+
+    <Button
+        android:id="@+id/menuButton"
+        android:layout_width="175dp"
+        android:layout_height="78dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:layout_marginBottom="108dp"
+        android:background="@drawable/butt"
+        android:text="GO TO MENU"
+        android:textSize="30dp"
+        android:textColor="@color/whiteTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/finalText" />
 </android.support.constraint.ConstraintLayout>

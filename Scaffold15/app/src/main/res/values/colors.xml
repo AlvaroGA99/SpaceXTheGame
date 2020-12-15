@@ -5,6 +5,9 @@
     <color name="colorAccent">#D81B60</color>
     <color name="spaceBlack">#000000</color>
     <color name="spaceBlue">#12258C</color>
-    <color name="redTitle">#950011</color>
+
+
+    <color name="redTitle">#AF0C33</color>
+>>>>>>> Stashed changes
     <color name="whiteTitle">#7CFFFFFF</color>
 </resources>

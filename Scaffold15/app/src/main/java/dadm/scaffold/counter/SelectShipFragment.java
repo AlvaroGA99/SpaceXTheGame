@@ -14,15 +14,12 @@ import dadm.scaffold.R;
 import dadm.scaffold.ScaffoldActivity;
 
 
-public class EndGameFragment extends BaseFragment  {
+public class SelectShipFragment extends BaseFragment {
 
 
 
-
-
-
-    public EndGameFragment() {
-
+    public SelectShipFragment() {
+        // Required empty public constructor
     }
 
     @Override
@@ -39,30 +36,27 @@ public class EndGameFragment extends BaseFragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_end_game, container, false);
+        return inflater.inflate(R.layout.fragment_select_ship, container, false);
 
 
     }
 
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView textView = (TextView)getView().findViewById(R.id.finalText);
-        Bundle bundle  = this.getArguments();
-        Button boton1 = (Button)getView().findViewById(R.id.menuButton);
-        boton1.setOnClickListener(new View.OnClickListener() {
+        Button blueShip = (Button)getView().findViewById(R.id.blueShip);
+        Button blueAnotherShip = (Button)getView().findViewById(R.id.blueAnotherShip);
+        blueShip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ScaffoldActivity)getActivity()).navigateToFragment(new MainMenuFragment(),"");            }
-        });
-        Button boton2 = (Button)getView().findViewById(R.id.playagainButton);
-        boton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((ScaffoldActivity)getActivity()).navigateToFragment(new GameFragment(),"");
+                ((ScaffoldActivity)getActivity()).navigateToFragment(new GameFragment(),"0");
             }
         });
-        textView.setText(bundle.getString("data"));
-
+        blueAnotherShip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ScaffoldActivity)getActivity()).navigateToFragment(new GameFragment(),"1");
+            }
+        });
 
     }
 }

@@ -3,11 +3,13 @@ package dadm.scaffold.engine;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Rect;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import dadm.scaffold.R;
 import dadm.scaffold.input.InputController;
 import dadm.scaffold.sound.GameEvent;
 import dadm.scaffold.sound.SoundManager;
@@ -20,12 +22,13 @@ public class GameEngine {
     private List<GameObject> objectsToRemove = new ArrayList<GameObject>();
     private List<Collision> detectedCollisions = new ArrayList<Collision>();
     private QuadTree quadTree = new QuadTree();
-
+    public int asteroid_counter;
     private UpdateThread theUpdateThread;
     private DrawThread theDrawThread;
     public InputController theInputController;
     private final GameView theGameView;
-
+    private TextView  scoreText;
+    public int fragId;
     public Random random = new Random();
 
     private SoundManager soundManager;
@@ -36,9 +39,10 @@ public class GameEngine {
 
     public Activity mainActivity;
 
-    public GameEngine(Activity activity, GameView gameView) {
+    public GameEngine(Activity activity, GameView gameView, TextView scoreText) {
         mainActivity = activity;
-
+        this.scoreText = scoreText;
+        asteroid_counter = 0;
         theGameView = gameView;
         theGameView.setGameObjects(this.gameObjects);
 
@@ -184,5 +188,11 @@ public class GameEngine {
         // We notify all the GameObjects
         // Also the sound manager
         soundManager.playSoundForGameEvent(gameEvent);
+    }
+
+    public void updateScore(){
+
+        String aux = this.asteroid_counter + "/2500";
+        scoreText.setText(aux);
     }
 }

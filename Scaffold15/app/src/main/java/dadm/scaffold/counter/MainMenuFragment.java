@@ -31,6 +31,13 @@ public class MainMenuFragment extends BaseFragment implements View.OnClickListen
     }
 
     @Override
+
+    public boolean onBackPressed(){
+
+        return true;
+    }
+
+    @Override
     public void onClick(View v) {
         ((ScaffoldActivity)getActivity()).startGame();
     }

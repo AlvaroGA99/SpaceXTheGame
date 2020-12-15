@@ -1,6 +1,11 @@
 package dadm.scaffold.space;
 
+import android.widget.TextView;
+
 import dadm.scaffold.R;
+import dadm.scaffold.ScaffoldActivity;
+import dadm.scaffold.counter.EndGameFragment;
+import dadm.scaffold.counter.GameFragment;
 import dadm.scaffold.engine.GameEngine;
 import dadm.scaffold.engine.ScreenGameObject;
 import dadm.scaffold.engine.Sprite;
@@ -63,14 +68,20 @@ public class Bullet extends Sprite {
     @Override
     public void onCollision(GameEngine gameEngine, ScreenGameObject otherObject) {
         if (otherObject instanceof Asteroid) {
-            Asteroid ast = (Asteroid) otherObject;
-            if (ast.type == this.type) {
 
+            Asteroid ast = (Asteroid)otherObject;
+            if(ast.type == this.type) {
+                gameEngine.asteroid_counter += 100;
                 // Remove both from the game (and return them to their pools)
+                gameEngine.updateScore();
                 removeObject(gameEngine);
                 ast.removeObject(gameEngine);
                 gameEngine.onGameEvent(GameEvent.AsteroidHit);
                 // Add some score
+                if(gameEngine.asteroid_counter == 2500){
+                    gameEngine.stopGame();
+                    ((ScaffoldActivity) gameEngine.mainActivity).navigateToFragment(new EndGameFragment(),"\nLEVEL COMPLETED\nYOU GOT "+ gameEngine.asteroid_counter + "/2500 POINTS");
+                }
             }
         }
     }
