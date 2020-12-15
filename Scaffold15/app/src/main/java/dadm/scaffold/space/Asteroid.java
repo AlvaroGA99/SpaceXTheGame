@@ -26,11 +26,12 @@ public class Asteroid extends Sprite {
             type = 1;
         }
 
-        this.speed = 200d * pixelFactor/1000d;
+        this.speed = 0;
         this.gameController = gameController;
     }
 
     public void init(GameEngine gameEngine) {
+        this.speed = 200d * pixelFactor/1000d;
         // They initialize in a [-30, 30] degrees angle
         double angle = gameEngine.random.nextDouble()*Math.PI/3d-Math.PI/6d;
         speedX = speed * Math.sin(angle);

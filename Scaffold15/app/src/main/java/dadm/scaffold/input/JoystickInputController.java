@@ -24,6 +24,9 @@ public class JoystickInputController extends InputController {
     private class JoystickTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+            if(start == 0){
+                start = 1;
+            }
             int action = event.getActionMasked();
             if (action == MotionEvent.ACTION_DOWN) {
                 startingPositionX = event.getX(0);
@@ -57,6 +60,9 @@ public class JoystickInputController extends InputController {
     private class FireButtonTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+            if(start == 0){
+                start = 1;
+            }
             int action = event.getActionMasked();
             if (action == MotionEvent.ACTION_DOWN) {
                 isFiring = true;
@@ -71,6 +77,9 @@ public class JoystickInputController extends InputController {
     private class ShipColorSwitchTouchListener implements View.OnTouchListener {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
+            if(start == 0){
+                start = 1;
+            }
             int action = event.getActionMasked();
             if (action == MotionEvent.ACTION_DOWN) {
                 colorSwitch = true;

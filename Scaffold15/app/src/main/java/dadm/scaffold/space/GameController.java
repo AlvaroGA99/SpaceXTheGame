@@ -37,10 +37,12 @@ public class GameController extends GameObject {
         long waveTimestamp = enemiesSpawned*TIME_BETWEEN_ENEMIES;
         if (currentMillis > waveTimestamp) {
             // Spawn a new enemy
-            Asteroid a = asteroidPool.remove(0);
-            a.init(gameEngine);
-            gameEngine.addGameObject(a);
-            enemiesSpawned++;
+            if(gameEngine.theInputController.start == 1){
+                Asteroid a = asteroidPool.remove(0);
+                a.init(gameEngine);
+                gameEngine.addGameObject(a);
+                enemiesSpawned++;
+            }
             return;
         }
     }
