@@ -121,22 +121,24 @@ public class SpaceShipPlayer extends Sprite {
             this.bitmap = bitmap = ((BitmapDrawable) spriteDrawable).getBitmap();
         }
         if(timeSinceLastFire > TIME_BETWEEN_BULLETS) {
-            Bullet bullet1 = getBullet();
-            if (bullet1 == null) {
-                return;
-            }
-            Bullet bullet2 = getBullet();
-            if (bullet2 == null) {
-                releaseBullet(bullet1);
-                return;
-            }
-            bullet1.init(this, positionX + width/2, positionY, 0);
-            bullet2.init(this, positionX + width/2 - 75, positionY, 0);
-            gameEngine.addGameObject(bullet1);
-            gameEngine.addGameObject(bullet2);
-            timeSinceLastFire = 0;
-            if (gameEngine.theInputController.isFiring) {
+            if(gameEngine.theInputController.isMoving) {
+                Bullet bullet1 = getBullet();
+                if (bullet1 == null) {
+                    return;
+                }
+                Bullet bullet2 = getBullet();
+                if (bullet2 == null) {
+                    releaseBullet(bullet1);
+                    return;
+                }
+                bullet1.init(this, positionX + width / 2, positionY, 0);
+                bullet2.init(this, positionX + width / 2 - 75, positionY, 0);
+                gameEngine.addGameObject(bullet1);
+                gameEngine.addGameObject(bullet2);
+                timeSinceLastFire = 0;
                 gameEngine.onGameEvent(GameEvent.LaserFired);
+            }
+            if (gameEngine.theInputController.isFiring) {
                 Bullet bullet3 = getBullet();
                 if (bullet3 == null) {
                     return;
@@ -167,9 +169,9 @@ public class SpaceShipPlayer extends Sprite {
                 gameEngine.addGameObject(bullet4);
                 gameEngine.addGameObject(bullet5);
                 gameEngine.addGameObject(bullet6);
+                gameEngine.onGameEvent(GameEvent.LaserFired);
+                timeSinceLastFire = 0;
             }
-            gameEngine.onGameEvent(GameEvent.LaserFired);
-            timeSinceLastFire = 0;
         }
         else {
             timeSinceLastFire += elapsedMillis;
@@ -180,7 +182,7 @@ public class SpaceShipPlayer extends Sprite {
     public void onCollision(GameEngine gameEngine, ScreenGameObject otherObject) {
         if (otherObject instanceof Asteroid){
             Asteroid ast = (Asteroid)otherObject;
-            if(ast.type == this.type) {
+            if(ast.type != this.type) {
 
                 //gameEngine.removeGameObject(this);
                 //gameEngine.stopGame();

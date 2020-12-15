@@ -10,7 +10,7 @@ public class InputController {
     public int start = 0;
 
     public boolean isFiring;
-
+    public boolean isMoving;
     public boolean colorSwitch;
 
     //endregion

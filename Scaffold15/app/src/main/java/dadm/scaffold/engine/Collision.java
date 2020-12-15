@@ -14,6 +14,7 @@ public class Collision {
         if (collisionPool.isEmpty()) {
             return new Collision(objectA, objectB);
         }
+        System.out.println("Lista de colisiones: " + (collisionPool.size()));
         return collisionPool.remove(0);
     }
 

@@ -29,10 +29,12 @@ public class JoystickInputController extends InputController {
             }
             int action = event.getActionMasked();
             if (action == MotionEvent.ACTION_DOWN) {
+                isMoving = true;
                 startingPositionX = event.getX(0);
                 startingPositionY = event.getY(0);
             }
             else if (action == MotionEvent.ACTION_UP) {
+                isMoving = false;
                 horizontalFactor = 0;
                 verticalFactor = 0;
             }

@@ -75,6 +75,14 @@ public class Asteroid extends Sprite {
 
     @Override
     public void onCollision(GameEngine gameEngine, ScreenGameObject otherObject) {
-
+        if(otherObject instanceof  SpaceShipPlayer) {
+            System.out.println("Colisión con jugador");
+        }
+        else if(otherObject instanceof  Bullet){
+            System.out.println("Colisión con disparo");
+        }
+        else if(otherObject instanceof  Asteroid){
+            System.out.println("Colisión con otro asteroide");
+        }
     }
 }
